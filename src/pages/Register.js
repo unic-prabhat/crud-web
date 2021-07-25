@@ -35,26 +35,27 @@ export default class Register extends Component {
             loadingForm:true
         })
 
-        axios.post('https://crud-server.vercel.app/api/user/store',this.state)
+        axios.post('http://localhost:5000/api/user/store',this.state)
         .then(response =>{
             console.log(response)
-            if(response.data.response){
-                this.setState({
-                    loadingForm:false,
-                    name:'',
-                    email:'',
-                    gender:'Male',
-                    phone:'',
-                    password:'',
-                    subject:'English',
-                    address:''
-                })
+            // if(response.data.response){
+            //     this.setState({
+            //         loadingForm:false,
+            //         name:'',
+            //         email:'',
+            //         gender:'Male',
+            //         phone:'',
+            //         password:'',
+            //         subject:'English',
+            //         address:''
+            //     })
 
-                NotificationManager.success('Success');
-                this.props.history.push('/register');
-            }else{
-                NotificationManager.warning('Failed');
-            }
+            //     NotificationManager.success('Success');
+            //     this.props.history.push('/login');
+            // }else{
+            //     this.setState({loadingForm:false})
+            //     NotificationManager.warning('Email already exists, please try another email id.');
+            // }
         })
     }
 

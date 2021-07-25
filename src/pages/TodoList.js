@@ -12,7 +12,7 @@ export default class TodoList extends Component {
     }
 
     componentDidMount(){
-        axios.get('https://crud-server.vercel.app/api/todo')
+        axios.get('http://localhost:5000/api/todo')
         .then(response=>{
             this.setState({
                 todos:response.data.data
@@ -22,13 +22,13 @@ export default class TodoList extends Component {
 
     handleDelete =id=>{
         
-        axios.get(`https://crud-server.vercel.app/api/todo/delete/${id}`)
+        axios.get(`http://localhost:5000/api/todo/delete/${id}`)
         .then(response=>{
 
             console.log(response)
 
          if(response.data.response){
-             axios.get('https://crud-server.vercel.app/api/todo')
+             axios.get('http://localhost:5000/api/todo')
              .then(response=>{
                 this.setState({
                     todos:response.data.data

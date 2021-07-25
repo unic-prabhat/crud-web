@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Grid, Button, Form, Input, TextArea, Icon } from 'semantic-ui-react'
 import { NotificationManager } from 'react-notifications';
 import axios from 'axios';
-
+import cookie from 'react-cookies'
 
 export default class Login extends Component {
 
@@ -15,6 +15,12 @@ export default class Login extends Component {
         }
 
         this.hanleTextChange = this.hanleTextChange.bind(this)
+    }
+
+    componentDidMount(){
+        cookie.remove('userdata', { path: '/' })
+        cookie.remove('userlogin', { path: '/' })
+        cookie.remove('userid', { path: '/' })
     }
 
     hanleTextChange(e){
@@ -32,21 +38,32 @@ export default class Login extends Component {
             loadingForm:true
         })
 
-        axios.post('https://crud-server.vercel.app/api/user/login',this.state)
+        axios.post('http://localhost:5000/api/user/login',this.state)
         .then(response =>{
-            console.log(response)
-            // if(response.data.response){
-            //     this.setState({
-            //         loadingForm:false,
-            //         email:'',
-            //         password:''
-            //     })
+            //console.log(response.data.response)
+            if(response.data.response){
+                this.setState({
+                    loadingForm:false,
+                    email:'',
+                    password:''
+                })
 
-            //     NotificationManager.success('Success');
-            //     this.props.history.push('/profile');
-            // }else{
-            //     NotificationManager.warning('Failed');
-            // }
+                cookie.remove('userdata', { path: '/' })
+                cookie.remove('userlogin', { path: '/' })
+                cookie.remove('userid', { path: '/' })
+
+                var expires = new Date();
+                expires.setSeconds(21600);
+                cookie.save('userdata', response.data.data, { path: '/', expires })
+                cookie.save('userid', response.data.data._id, { path: '/', expires })
+                cookie.save('userlogin', true, { path: '/', expires })
+
+                NotificationManager.success('Login Success');
+                this.props.history.push('/');
+            }else{
+                
+                NotificationManager.warning(response.data.message);
+            }
         })
     }
 

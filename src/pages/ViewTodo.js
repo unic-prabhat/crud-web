@@ -11,7 +11,7 @@ export default class ViewTodo extends Component{
 
     componentDidMount(){
      
-        axios.get(`https://crud-server.vercel.app/api/todo/${this.props.match.params.id}`)
+        axios.get(`http://localhost:5000/api/todo/${this.props.match.params.id}`)
         .then(response => {
            console.log(response.data.data)
            if(response.data.response){
