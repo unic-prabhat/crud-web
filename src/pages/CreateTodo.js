@@ -32,7 +32,7 @@ export default class CreateTodo extends Component{
             loadingForm:true
         })
 
-        axios.post('https://crud-web-rho.vercel.app/api/todo/store',this.state)
+        axios.post('https://crud-server.vercel.app/api/todo/store',this.state)
         .then(response => {
             console.log(response.data.response)
             if(response.data.response){
