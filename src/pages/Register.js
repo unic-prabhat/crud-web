@@ -35,7 +35,7 @@ export default class Register extends Component {
             loadingForm:true
         })
 
-        axios.post('http://localhost:5000/api/user/store',this.state)
+        axios.post('https://crud-server.vercel.app/api/user/store',this.state)
         .then(response =>{
             console.log(response)
             if(response.data.response){
