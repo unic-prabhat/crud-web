@@ -17,7 +17,7 @@ export default class EmailVerificationMatch extends Component {
             code:this.props.match.params.code
         }
 
-        axios.post('http://localhost:5000/api/user/checkemailverificationcode',tempData)
+        axios.post('https://crud-web-rho.vercel.app/api/user/checkemailverificationcode',tempData)
         .then(response=>{
             console.log(response.data)
             if(response.data.response){
