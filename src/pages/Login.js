@@ -61,7 +61,7 @@ export default class Login extends Component {
                 NotificationManager.success('Login Success');
                 this.props.history.push('/');
             }else{
-                
+                this.setState({loadingForm:false})
                 NotificationManager.warning(response.data.message);
             }
         })
